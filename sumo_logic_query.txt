@@ -1,0 +1,7 @@
+_sourceCategory='/api/logs/'
+| json "endpoint","response_time_ms" as endpoint, response
+| timeslice 10m
+| where endpoint="/api/data"
+| where response > 3000
+| count(response) as slowCount  
+| where count > 5
